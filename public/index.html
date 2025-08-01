@@ -21,6 +21,28 @@
         </div>
 
     </div>
+
+
+    <!-- javascript -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const messageDiv = document.getElementById("messages");
+
+        // jab jab chat message trigger hoga
+        socket.on("chatMessage", (msg)=>{
+            const p = document.createElement('p');
+            p.innerText = msg;
+            messageDiv.appendChild(p);
+        });
+
+        const sendMessage = ()=>{
+            const input = document.getElementById("msgInput");
+            const msg = input.value;
+            socket.emit("chatMessage", msg);
+            input.value = "";
+        }
+    </script>
 </body>
 
 </html>
