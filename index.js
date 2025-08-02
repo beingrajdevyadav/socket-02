@@ -20,19 +20,27 @@ io.on("connection", (socket)=>{
 
 
     // sabhi ko welcome message bhejo
-    socket.broadcast.emit("chatMessage", "New user connected!");
+    socket.broadcast.emit("chatMessage", {
+        username: "Admin",
+        msg: "New user has joined the chat",
+        time: new Date().toLocaleTimeString()
+    });
 
 
     // user ka message sabhi ko bhejo
-    socket.on("chatMessage", (msg)=>{
-        io.emit("chatMessage", msg);
+    socket.on("chatMessage", (data)=>{
+        io.emit("chatMessage", data);
     });
 
 
     // user disconnect hone par
 
     socket.on("disconnect", ()=>{
-        io.emit("chatMessage", "one user discconnect")
+        io.emit("chatMessage", {
+            username: "Admin",
+            msg: "User has left the chat",
+            time: new Date().toLocaleTimeString()
+        })
     });
 });
 

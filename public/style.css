@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*{
+* {
     padding: 0;
     box-sizing: border-box;
     margin: 0;
     font-family: 'Poppins', sans-serif;
 }
-body{
-    background-image: linear-gradient(to right, #00c8ff38, #0073ff5c), url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/Desktop.png");
+
+body {
+    background-image: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/Desktop.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -18,15 +19,24 @@ body{
     height: 100vh;
 }
 
-.chat-container{
-    width:350px;
-    background-color: #fff;
+.form-container {
+    width: 350px;
+    background-color: #93afbc;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 3px 420px #000000a9;
 }
 
-#messages{
+.chat-container {
+    width: 350px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 3px 420px #000000a9;
+    display: none;
+}
+
+#messages {
     height: 350px;
     overflow-y: auto;
     border: 1px solid #ccc;
@@ -34,19 +44,42 @@ body{
     margin-bottom: 10px;
 }
 
-.controls{
+.sent {
+    text-align: right;
+    color: #fff;
+    background-color: #4b6789;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 85%;
+    margin-left: auto;
+}
+
+.received {
+    text-align: left;
+    color: #000;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 85%;
+    margin-right: auto;
+}
+
+.controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 5px;
 }
 
-input{
+input {
     width: 80%;
     height: 50px;
     padding: 15px;
 }
-button{
+
+button {
     width: 20%;
     height: 50px;
 

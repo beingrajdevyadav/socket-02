@@ -10,11 +10,20 @@
 
 <body>
 
-    <div class="chat-container">
-        <h2>Realtime Chat</h2>
+    <div class="form-container" id="formContainer">
+        <h2>AnonymousChat</h2>
 
+        <div class="controls">
+            <input type="text" id="usernameInput" placeholder="Enter a username">
+            <button onclick="startChat()">Start</button>
+        </div>
+
+
+    </div>
+
+    <div class="chat-container" id="chatContainer" style="display: none;">
+        <h2>AnonymousChat</h2>
         <div id="messages"></div>
-
         <div class="controls">
             <input type="text" id="msgInput" placeholder="Type a message...">
             <button onclick="sendMessage()">Send</button>
@@ -28,18 +37,45 @@
     <script>
         const socket = io();
         const messageDiv = document.getElementById("messages");
+        let username = "";
+        // const msg = `${username} has joined the chat!`;
+        // socket.emit("chatMessage", msg);
 
+        function startChat() {
+            const input = document.getElementById("usernameInput");
+           username = input.value.trim() || "Anonymous";
+
+            if (username === "") {
+                alert("Please enter a valid username.");
+                return;
+            }
+            document.getElementById("formContainer").style.display = "none";
+            document.getElementById("chatContainer").style.display = "block";
+            socket.emit("chatMessage", {
+                username,
+                msg: `${username} has joined the chat!`
+            });
+        }
         // jab jab chat message trigger hoga
-        socket.on("chatMessage", (msg)=>{
+        socket.on("chatMessage", (data) => {
             const p = document.createElement('p');
-            p.innerText = msg;
+            p.innerText = data.msg;
+            if (data.username === username) {
+                p.classList.add("sent");
+            } else {
+                p.classList.add("received");
+            }
+
             messageDiv.appendChild(p);
         });
 
-        const sendMessage = ()=>{
+        const sendMessage = () => {
             const input = document.getElementById("msgInput");
             const msg = input.value;
-            socket.emit("chatMessage", msg);
+            socket.emit("chatMessage", {
+                msg: msg,
+                username: username
+            });
             input.value = "";
         }
     </script>
